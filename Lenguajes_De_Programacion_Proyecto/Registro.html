@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> UNIXMATCH </title>
+    <link rel="icon" type="image/icon" href="Imagenes/favicon.png"/>
+    <style type="text/css">
+        body {
+            background-color: maroon;
+        }
+
+        #mg {
+            background-image: url(foto.jpg);
+            width: 800px;
+            margin: auto;
+            width: 500px;
+        }
+
+        span {
+            width: 100px;
+            float: left;
+        }
+
+        .texto {
+            background-color: white;
+            padding: 3px;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 25px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: justify;
+        }
+
+        p {
+            color: white;
+            font-size: 18px;
+        }
+
+        .centrar {
+            position: absolute;
+            /*nos posicionamos en el centro del navegador*/
+            top: 50%;
+            left: 50%;
+            /*determinamos una anchura*/
+            width: 350px;
+            /*indicamos que el margen izquierdo, es la mitad de la anchura*/
+            margin-left: -200px;
+            /*determinamos una altura*/
+            height: 350px;
+            /*indicamos que el margen superior, es la mitad de la altura*/
+            margin-top: -350px;
+            padding: 50px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        function Submit() {
+            //var id = $('#Id').val();
+            var nom = $('#Nombres').val();
+            var ape = $('#Apellidos').val();
+            var genero = $('#Genero').val();
+            var email = $('#Email').val();
+            var password = $('#Password').val();
+            var fechaNacimiento = $('#FechadeNacimiento').val();
+            //var foto = $('#Foto').val();
+            alert('¡Listo! Ya estás registrado');
+            var url = '/Servicio_Web.asmx/Registro';
+            data = { nombres: nom, apellidos: ape, genero: genero, email: email, password: password, fechaNacimiento: fechaNacimiento };
+            $.post(url, data, function (data) {
+                //Esto se ejecuta si el request se realiza correctamente
+                if (data != -1) {
+                    alert('¡Listo! Ya estás registrado');
+                    Limpiar();
+                }
+                else {
+                    alert('Hubo un error');
+                }
+            })
+
+
+        }
+
+        function Limpiar() {
+            /*
+            jQuery es una librería que ayuda a realizar tareas en JS
+            $(#ID_Element) es equivalente a document.getElementById(ID_Element) que es el método nativo de javascript
+            $(#ID_Element).val(value) es equivalente  a documen.getElementById(ID_Element).value
+            */
+
+            $('#Nombres').val('');
+            $('#Apellidos').val('');
+            $('#Genero').val('');
+            $('#Email').val('');
+            $('#Password').val('');
+            $('#FechadeNacimiento').val('');
+
+        }
+    </script>
+</head>
+<body>
+    <div class="centrar">
+        <h1> REGISTRATE EN UNIXMATCH </h1><br>
+        <p>
+            <span>Nombres: </span>
+            <input type="text" id="Nombres" class="texto" name="txtNom" size="40">
+        </p>
+        <p>
+            <span>Apellidos: </span>
+            <input type="text" id="Apellidos" class="texto" name="txtApe" size="40">
+        </p>
+        <p>
+            <span>Correo Electronico: </span>
+            <input type="text" id="Email" class="texto" name="txtEmail" size="40">
+        </p>
+        <p>
+            <span>Contraseña: </span>
+            <input type="password" id="Password" class="texto" name="txtContraseña" size="40">
+        </p>
+        <p>
+            <span>Fecha de Nacimiento: </span>
+            <input type="date" id="FechadeNacimiento" name="Fecha" min="1900 - 01 - 01" max="2050 - 01 - 01">
+        </p>
+        <p>
+            <span>Sexo: </span>
+            <select id="Genero" name="txtGenero">
+                <option selected value="M">M</option>
+                <option value="F">F</option>
+            </select>
+        </p>
+        <p>
+            <span>Subir Foto </span>
+            <input type="file" name="Foto">
+        </p><br>
+        <p>
+            <button onClick="Submit()" value="Insertar">Registrarse</button>
+            <button onClick="Limpiar()" value="Limpiar">Borrar todo</button>
+        </p>
+    </div>
+</body>
+</html>
