@@ -24,7 +24,6 @@ namespace Lenguajes_De_Programacion_Proyecto
             db.Close();
             return r;
         }
-
         private static string Conexion() => $"server = {host}; port = {port}; username = {user}; password ={pwd}; database = {db}";
     }  
 } 
